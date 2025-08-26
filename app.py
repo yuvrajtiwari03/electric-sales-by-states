@@ -70,13 +70,15 @@ else:
     growth = 0
 
 # --- KPI CARDS ---
+
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Total EV Sales", value=f"{total_sales:,.0f}")
 with col2:
     st.metric(label="Top State", value=top_state)
 with col3:
-    st.metric(label="Growth %", value=f"{growth:.2f}%")
+    st.metric(label="Growth %", value=f"{growth:.2f}%", delta=f"{growth:.2f}%")
+
 
 # --- CHARTS ---
 col4, col5 = st.columns(2)
@@ -98,6 +100,7 @@ with col5:
 # --- FOOTER ---
 st.markdown("---")
 st.caption("📊 Electric Vehicle Sales Dashboard | Created by [YUVRAJ TIWARI] | Powered by Streamlit")
+
 
 
 
