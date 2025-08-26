@@ -59,7 +59,15 @@ if state_filter:
 # --- KPI CALCULATIONS ---
 total_sales = df_filtered["EV_Sales"].sum()
 top_state = df_filtered.groupby("State")["EV_Sales"].sum().idxmax()
-growth = ((total_sales - df["EV_Sales"].sum()) / df["EV_Sales"].sum()) * 100
+#growth = ((total_sales - df["EV_Sales"].sum()) / df["EV_Sales"].sum()) * 100
+
+# --- Growth Calculation (Year-on-Year) ---
+sales_by_year = df_filtered.groupby("Year")["EV_Sales"].sum().reset_index()
+if len(sales_by_year) > 1:
+    growth = ((sales_by_year.iloc[-1]["EV_Sales"] - sales_by_year.iloc[-2]["EV_Sales"]) / 
+               sales_by_year.iloc[-2]["EV_Sales"]) * 100
+else:
+    growth = 0
 
 # --- KPI CARDS ---
 col1, col2, col3 = st.columns(3)
@@ -90,6 +98,7 @@ with col5:
 # --- FOOTER ---
 st.markdown("---")
 st.caption("📊 Electric Vehicle Sales Dashboard | Created by [YUVRAJ TIWARI] | Powered by Streamlit")
+
 
 
 
